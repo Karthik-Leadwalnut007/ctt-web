@@ -7,6 +7,11 @@ import remarkHtml from "remark-html"
 import { getAllPosts, getPostBySlug, getRelatedPostsAll, getAdjacentPostsAll } from "@/lib/all-posts"
 import DynamicArticleContent from "./article-client"
 
+// Auto-refresh every 60 seconds — new CMS posts appear without full rebuild
+export const revalidate = 60
+// Allow new slugs (added via CMS) to be rendered on-demand without rebuild
+export const dynamicParams = true
+
 // ─── Static params — one page per post from ALL sources ──────────────────────
 
 export async function generateStaticParams() {

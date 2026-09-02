@@ -3,6 +3,9 @@ import { Suspense } from "react"
 import MediaPageClient from "@/components/mediaPage"
 import { getAllPosts } from "@/lib/all-posts"
 
+// Auto-refresh page every 60 seconds — no full rebuild needed when CMS adds/removes posts
+export const revalidate = 60
+
 export const metadata: Metadata = {
   title: "Media & Insights | Expert Articles on AI Talent, Tech Hiring & Workforce Trends - Connect Tech+Talent",
   description:
