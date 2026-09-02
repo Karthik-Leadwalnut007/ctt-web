@@ -53,9 +53,6 @@ export async function generateMetadata({
 // ─── Markdown → HTML converter ────────────────────────────────────────────────
 
 async function markdownToHtml(markdown: string): Promise<string> {
-  const { unified } = await import("unified")
-  const { default: remarkParse } = await import("remark-parse")
-  const { default: remarkHtml } = await import("remark-html")
   const result = await unified()
     .use(remarkParse)
     .use(remarkHtml, { sanitize: false })
