@@ -1,0 +1,18 @@
+events {}
+
+http {
+    upstream nextjs {
+        server app:3000;
+    }
+
+    # Redirect HTTP to HTTPS
+    server {
+        listen 80;
+        server_name connecttechtalent.com www.connecttechtalent.com;
+
+        #VIKRAM - when renewing, use location and comment out return
+        location /.well-known/acme-challenge/ {
+             root /var/www/certbot;
+        }
+    }
+}

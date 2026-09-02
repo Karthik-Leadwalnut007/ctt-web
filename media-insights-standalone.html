@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Media &amp; Insights | Connect Tech+Talent</title>
+<meta name="description" content="Expert insights on AI hiring, contract staffing, workforce strategy, and technology talent acquisition from Connect Tech+Talent."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --p:#1b99a7;--pd:#157a86;--pl:#e8f7f8;
+  --g9:#111827;--g8:#1f2937;--g7:#374151;--g6:#4b5563;--g5:#6b7280;
+  --g4:#9ca3af;--g3:#d1d5db;--g2:#e5e7eb;--g1:#f3f4f6;--g0:#f9fafb;
+  --w:#fff;--f:'Inter',-apple-system,sans-serif;--r:12px
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--f);background:var(--w);color:var(--g7);-webkit-font-smoothing:antialiased;min-height:100vh}
+a{text-decoration:none;color:inherit;cursor:pointer}
+img{display:block;max-width:100%}
+button{cursor:pointer;font-family:var(--f);border:none;background:none}
+.ct{max-width:1280px;margin:0 auto;padding:0 2rem}
+@media(max-width:768px){.ct{padding:0 1rem}}
+
+/* ── Reading progress bar ───────────────────────────── */
+#progress-bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--p),var(--pd));width:0%;z-index:200;transition:width .1s linear;pointer-events:none}
+
+/* ── Header ─────────────────────────────────────────── */
+.sh{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--g2);box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.shi{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{display:flex;align-items:center;gap:8px;cursor:pointer}
+.hn{display:flex;align-items:center;gap:28px}
+@media(max-width:900px){.hn{display:none}}
+.nl{font-size:13.5px;font-weight:500;color:var(--g6);transition:color .15s;padding:4px 0}
+.nl:hover,.nl.ac{color:var(--p)}
+.nl.ac{border-bottom:2px solid var(--p)}
+.bct{padding:8px 18px;border:1.5px solid var(--g3);border-radius:8px;font-size:13.5px;font-weight:600;color:var(--g7);transition:all .15s}
+.bct:hover{border-color:var(--p);color:var(--p)}
+
+/* ── Listing page ───────────────────────────────────── */
+.lh{padding:48px 0 32px;background:linear-gradient(135deg,var(--g0) 0%,var(--w) 60%);border-bottom:1px solid var(--g1)}
+.lh h1{font-size:clamp(28px,4vw,40px);font-weight:800;color:var(--g9);margin-bottom:12px;line-height:1.2}
+.lh p{font-size:16px;color:var(--g5);font-weight:300;max-width:560px;line-height:1.7}
+.bgs{padding:48px 0 64px}
+.bg{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+@media(max-width:1024px){.bg{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.bg{grid-template-columns:1fr}}
+.bc2{display:flex;flex-direction:column;background:var(--w);border:1px solid var(--g2);border-radius:var(--r);overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.06);transition:box-shadow .2s,transform .2s;cursor:pointer}
+.bc2:hover{box-shadow:0 8px 24px rgba(0,0,0,.10);transform:translateY(-2px)}
+.ci{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;background:var(--g1)}
+.ci img{width:100%;height:100%;object-fit:cover;transition:transform .3s}
+.bc2:hover .ci img{transform:scale(1.04)}
+.cb{display:flex;flex-direction:column;flex:1;padding:20px}
+.cat{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--p);margin-bottom:8px}
+.ct2{font-size:16px;font-weight:700;color:var(--g9);line-height:1.4;margin-bottom:8px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.cm{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--g4);margin-bottom:10px}
+.ce{font-size:13px;color:var(--g5);line-height:1.6;font-weight:300;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;flex:1;margin-bottom:16px}
+.lm{display:inline-flex;align-items:center;gap:4px;font-size:12.5px;font-weight:600;color:var(--p);transition:gap .15s}
+.lm:hover{gap:8px}
+.lm svg{width:12px;height:12px}
+
+/* ── Article page — hero / header ───────────────────── */
+.art-wrap{max-width:1280px;margin:0 auto;padding:0 2rem}
+@media(max-width:768px){.art-wrap{padding:0 1rem}}
+
+/* Breadcrumb row */
+.bb{border-bottom:1px solid var(--g1);background:var(--g0);padding:10px 0}
+.bbi{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.bc-nav{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--g5)}
+.bc-nav a{color:var(--g5);transition:color .15s}
+.bc-nav a:hover{color:var(--g8)}
+.bl{display:flex;align-items:center;gap:4px;font-size:12px;color:var(--g5);transition:color .15s;cursor:pointer}
+.bl:hover{color:var(--g8)}
+
+/* Hero header (category + title + meta) */
+.ahs{padding:28px 0 0}
+.acat-badge{display:inline-flex;align-items:center;padding:5px 14px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:rgba(27,153,167,.1);color:var(--p);margin-bottom:20px}
+.at{font-weight:800;color:var(--g9);line-height:1.13;margin-bottom:28px;max-width:900px;font-size:clamp(30px,4vw,54px);text-wrap:balance}
+/* Meta row */
+.amr{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding-bottom:32px;border-bottom:1px solid var(--g1)}
+.am{display:flex;flex-wrap:wrap;align-items:center;gap:10px;font-size:13px;color:var(--g5)}
+.av{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0;background:linear-gradient(135deg,#1b99a7,#0d7a85)}
+.am-sep{color:var(--g3)}
+.am-item{display:flex;align-items:center;gap:4px}
+.am-item svg{width:13.5px;height:13.5px;color:var(--g4);flex-shrink:0}
+/* Share */
+.sr{display:flex;align-items:center;gap:6px}
+.sl{font-size:12px;color:var(--g4);font-weight:500;letter-spacing:.05em;text-transform:uppercase;font-size:11px}
+.sb{width:36px;height:36px;border-radius:50%;border:1px solid var(--g2);display:flex;align-items:center;justify-content:center;color:var(--g5);transition:all .2s;cursor:pointer}
+.sb:hover{border-color:var(--p);color:var(--p);background:rgba(27,153,167,.05);transform:scale(1.1)}
+.sb svg{width:14px;height:14px}
+
+/* Hero image — 16:9, rounded, shadow */
+.hw{position:relative;width:100%;overflow:hidden;background:var(--g1);margin:32px 0 0;aspect-ratio:16/9;border-radius:24px;box-shadow:0 24px 80px rgba(0,0,0,.12),0 4px 16px rgba(0,0,0,.07)}
+.hw img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.22,1,.36,1)}
+.hw:hover img{transform:scale(1.03)}
+.hw-grad{position:absolute;inset-x:0;bottom:0;height:25%;background:linear-gradient(to top,rgba(0,0,0,.14),transparent);pointer-events:none}
+
+/* ── Two-column article body ────────────────────────── */
+.acs{padding:48px 0 64px}
+.abg{display:grid;grid-template-columns:260px minmax(0,1fr);gap:56px;align-items:start}
+@media(max-width:1024px){.abg{grid-template-columns:1fr}}
+
+/* TOC sidebar */
+.toc{position:sticky;top:88px;align-self:start;order:-1}
+@media(max-width:1024px){.toc{display:none}}
+.toc-card{background:var(--g0);border:1px solid var(--g2);border-radius:16px;padding:20px 16px}
+.tl{font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--g4);margin-bottom:14px;padding:0 4px}
+.tlist{list-style:none;display:flex;flex-direction:column;gap:2px}
+.ta{display:block;padding:7px 12px;font-size:13px;color:var(--g5);font-weight:400;border-left:2px solid transparent;border-radius:0 6px 6px 0;transition:all .15s;line-height:1.4;cursor:pointer}
+.ta:hover{color:var(--g7);background:var(--g1)}
+.ta.ac{color:var(--p);font-weight:600;border-left-color:var(--p);background:rgba(27,153,167,.06)}
+
+/* Article prose */
+.prose{font-size:18px;color:var(--g6);line-height:1.8;font-weight:300;max-width:760px}
+.prose h2{font-size:22px;font-weight:700;color:var(--g9);margin:2.5rem 0 .875rem;line-height:1.3;scroll-margin-top:100px}
+.prose h3{font-size:18px;font-weight:600;color:var(--g8);margin:2rem 0 .75rem;line-height:1.3}
+.prose p{margin-bottom:1.4rem;line-height:1.8}
+.prose ul{list-style:disc;padding-left:1.75rem;margin-bottom:1.4rem}
+.prose ol{list-style:decimal;padding-left:1.75rem;margin-bottom:1.4rem}
+.prose li{font-size:17px;color:var(--g6);margin-bottom:8px;line-height:1.7}
+.prose strong{font-weight:600;color:var(--g8)}
+.prose a{color:var(--p);text-decoration:underline;text-underline-offset:3px}
+.prose blockquote{border-left:3px solid var(--p);padding:1rem 1.5rem;background:var(--g0);border-radius:0 12px 12px 0;margin:2rem 0;font-style:italic;color:var(--g5)}
+
+/* ── Bottom CTA banner ──────────────────────────────── */
+.ctas{background:var(--g0);border-top:1px solid var(--g1);padding:56px 0}
+.ctai{max-width:960px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:32px}
+.ctaico{width:64px;height:64px;border-radius:16px;background:var(--pl);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ctat{flex:1;min-width:200px}
+.ctat h2{font-size:18px;font-weight:700;color:var(--g9);margin-bottom:6px}
+.ctat p{font-size:14px;color:var(--g5);line-height:1.6;font-weight:300}
+.ctab{display:flex;flex-wrap:wrap;gap:10px;flex-shrink:0}
+.bp{display:inline-flex;align-items:center;gap:6px;padding:10px 20px;background:var(--p);color:var(--w);font-size:13.5px;font-weight:600;border-radius:8px;transition:background .15s}
+.bp:hover{background:var(--pd)}
+.bo{display:inline-flex;align-items:center;gap:6px;padding:10px 20px;border:1.5px solid var(--g3);color:var(--g7);font-size:13.5px;font-weight:600;border-radius:8px;transition:all .15s}
+.bo:hover{border-color:var(--p);color:var(--p)}
+.bp svg,.bo svg{width:14px;height:14px}
+
+/* ── Related posts ──────────────────────────────────── */
+.rs{padding:56px 0;background:var(--w);border-top:1px solid var(--g1)}
+.rs h2{font-size:20px;font-weight:700;color:var(--g9);margin-bottom:28px}
+.rg{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+@media(max-width:768px){.rg{grid-template-columns:1fr}}
+
+/* ── Prev / Next ────────────────────────────────────── */
+.pn{border-top:1px solid var(--g1);padding:32px 0}
+.pni{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.pl2,.nx{display:flex;align-items:center;gap:12px;font-size:13px;color:var(--g6);transition:color .15s;cursor:pointer}
+.pl2:hover,.nx:hover{color:var(--p)}
+.pl2 svg,.nx svg{width:16px;height:16px;flex-shrink:0}
+.nlb{font-size:10px;color:var(--g4);text-transform:uppercase;letter-spacing:.1em;display:block;margin-bottom:2px}
+.ntit{font-weight:600;line-height:1.3;max-width:280px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+
+/* ── Footer ─────────────────────────────────────────── */
+.sf{background:var(--g9);color:var(--g4);padding:48px 0 24px}
+.sfi{display:flex;flex-wrap:wrap;gap:32px;margin-bottom:40px}
+.sfb{flex:0 0 240px}
+.sfd{font-size:13px;line-height:1.7;margin-top:12px;color:var(--g4);font-weight:300}
+.sfbt{border-top:1px solid rgba(255,255,255,.1);padding-top:20px;font-size:12px;color:var(--g5)}
+
+/* ── Utility ─────────────────────────────────────────── */
+.hid{display:none!important}
+</style>
+</head>
+<body>
+
+<!-- Reading progress bar -->
+<div id="progress-bar"></div>
+
+<header class="sh">
+<div class="ct"><div class="shi">
+<div class="logo" onclick="sv('listing')">
+<img src="https://connecttechtalent.com/images/design-mode/ctt-logo-horizontal.png" alt="Connect Tech+Talent" style="height:34px;width:auto;display:block"/>
+</div>
+<nav class="hn">
+<a class="nl" href="#">Services</a>
+<a class="nl" href="#">AI Talent</a>
+<a class="nl" href="#">Industries</a>
+<a class="nl" href="#">Insights</a>
+<a class="nl ac" onclick="sv('listing');return false">Media</a>
+<a class="nl" href="#">About Us</a>
+<a class="bct" href="#">Contact Us</a>
+</nav>
+</div></div>
+</header>
+
+<!-- ── LISTING ─────────────────────────────────────── -->
+<div id="vl">
+<section class="lh"><div class="ct">
+<h1>Media &amp; Insights</h1>
+<p>Expert perspectives on AI hiring, contract staffing, workforce strategy, and the future of talent acquisition.</p>
+</div></section>
+<section class="bgs"><div class="ct"><div class="bg" id="bgrid"></div></div></section>
+</div>
+
+<!-- ── ARTICLE ────────────────────────────────────── -->
+<div id="va" class="hid">
+
+  <!-- Breadcrumb -->
+  <div class="bb"><div class="ct"><div class="bbi">
+    <nav class="bc-nav">
+      <a onclick="sv('listing')">Home</a>
+      <span style="font-size:10px;color:var(--g4)">›</span>
+      <a onclick="sv('listing')">Media &amp; Insights</a>
+      <span style="font-size:10px;color:var(--g4)">›</span>
+      <span id="abcat" style="color:var(--g7);font-weight:500"></span>
+    </nav>
+    <a class="bl" onclick="sv('listing')">
+      <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 12L6 8l4-4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Back to Media &amp; Insights
+    </a>
+  </div></div></div>
+
+  <!-- Article header -->
+  <div class="art-wrap">
+    <div class="ahs">
+      <span class="acat-badge" id="acat"></span>
+      <h1 class="at" id="atit"></h1>
+      <div class="amr">
+        <!-- Author + meta -->
+        <div class="am">
+          <div class="av">CT</div>
+          <span style="font-weight:600;color:var(--g7)" id="aauth"></span>
+          <span class="am-sep">•</span>
+          <div class="am-item">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="2" y="2" width="12" height="12" rx="2"/><path d="M5 1v2M11 1v2M2 6h12" stroke-linecap="round"/></svg>
+            <span id="adate"></span>
+          </div>
+          <span class="am-sep">•</span>
+          <div class="am-item">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="8" cy="8" r="6"/><path d="M8 5v3.5l2 1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span id="art"></span>
+          </div>
+          <span class="am-sep">•</span>
+          <div class="am-item">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M2 8l5 5 7-9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span id="askim"></span> to skim
+          </div>
+        </div>
+        <!-- Share -->
+        <div class="sr">
+          <span class="sl">SHARE</span>
+          <button class="sb" title="LinkedIn" id="sh-li">
+            <svg viewBox="0 0 16 16" fill="currentColor"><path d="M13.5 1h-11A1.5 1.5 0 001 2.5v11A1.5 1.5 0 002.5 15h11a1.5 1.5 0 001.5-1.5v-11A1.5 1.5 0 0013.5 1zM5.5 13H3.5V6.5h2V13zM4.5 5.5a1 1 0 110-2 1 1 0 010 2zM13 13h-2v-3.5c0-.828-.672-1.5-1.5-1.5s-1.5.672-1.5 1.5V13h-2V6.5h2V7.6c.52-.77 1.4-1.1 2.2-1.1C12.2 6.5 13 7.5 13 9V13z"/></svg>
+          </button>
+          <button class="sb" title="X / Twitter" id="sh-tw">
+            <svg viewBox="0 0 16 16" fill="currentColor"><path d="M12.6 1h2.3L9.7 7 16 15h-4.1l-3.7-4.9L3.9 15H1.6l5.5-6.4L1 1h4.2l3.4 4.5L12.6 1zm-.8 12.6h1.3L4.2 2.4H2.8l9 11.2z"/></svg>
+          </button>
+          <button class="sb" title="Email" id="sh-em">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="14" height="10" rx="1.5"/><path d="M1 4l7 5 7-5" stroke-linecap="round"/></svg>
+          </button>
+          <button class="sb" title="Copy link" onclick="navigator.clipboard&&navigator.clipboard.writeText(location.href)">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="1" width="9" height="11" rx="1.5"/><path d="M10 12v2a1.5 1.5 0 01-1.5 1.5H1.5A1.5 1.5 0 010 14V5a1.5 1.5 0 011.5-1.5H4" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hero image -->
+    <div class="hw">
+      <img id="ahimg" src="" alt=""/>
+      <div class="hw-grad"></div>
+    </div>
+  </div>
+
+  <!-- Two-column: TOC (left) + prose (right) -->
+  <div class="acs"><div class="art-wrap"><div class="abg">
+
+    <!-- Sticky TOC sidebar -->
+    <aside class="toc" id="atoc">
+      <div class="toc-card">
+        <p class="tl">In This Article</p>
+        <ul class="tlist" id="tocl"></ul>
+      </div>
+    </aside>
+
+    <!-- Article body -->
+    <div class="prose" id="acont"></div>
+
+  </div></div></div>
+
+  <!-- CTA banner -->
+  <section class="ctas"><div class="ct"><div class="ctai">
+    <div class="ctaico"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="10" cy="10" r="5" fill="#1b99a7" opacity=".4"/><circle cx="22" cy="10" r="5" fill="#1b99a7" opacity=".6"/><circle cx="16" cy="22" r="5" fill="#1b99a7"/></svg></div>
+    <div class="ctat"><h2>Ready to build an AI-ready talent strategy?</h2><p>Partner with our team to unlock the potential of AI-driven hiring and build high-performing teams for the future.</p></div>
+    <div class="ctab">
+      <a href="#" class="bp">Talk to Our Team <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10m-4-4l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a href="#" class="bo">Explore AI Talent <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10m-4-4l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+  </div></div></section>
+
+  <!-- Related posts -->
+  <section class="rs"><div class="ct"><h2>Related Insights</h2><div class="rg" id="rgrid"></div></div></section>
+
+  <!-- Prev / Next -->
+  <div class="pn"><div class="ct"><div class="pni"><div id="ppst"></div><div id="npst"></div></div></div></div>
+
+</div>
+
+<footer class="sf"><div class="ct">
+<div class="sfi"><div class="sfb">
+<div class="logo">
+<img src="https://connecttechtalent.com/images/design-mode/ctt-logo-horizontal.png" alt="Connect Tech+Talent" style="height:34px;width:auto;display:block"/>
+</div>
+<p class="sfd">AI-powered talent acquisition and contract staffing for technology enterprises.</p>
+</div></div>
+<div class="sfbt">&copy; <script>document.write(new Date().getFullYear())</script> Connect Tech+Talent. All rights reserved.</div>
+</div></footer>
+
+<script>
+
+const POSTS=[
+  {id:"1",slug:"mastering-ai-driven-hiring",title:"Mastering AI-Driven Hiring in the Modern Era",category:"AI Hiring",author:"Connect Tech+Talent",date:"Nov 16, 2023",readTime:"14 min read",excerpt:"Artificial Intelligence has emerged as a transformative force in recruitment, reshaping how organizations approach hiring. Discover the 14 essential steps to master AI-driven hiring.",image:"https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=1400&h=788&fit=crop&q=85",content:`<h2>Introduction</h2>
+<p>In the dynamic world of recruitment, staying ahead means embracing innovation. Artificial Intelligence (AI) has emerged as a transformative force, reshaping how organizations approach hiring. From streamlining resume screenings to predicting candidate success, AI offers a suite of tools that can revolutionize the recruitment process.</p>
+<p>Whether you're a seasoned hiring agency or a business navigating the complexities of <strong>contract staffing</strong>, understanding how to harness the power of AI is crucial. This guide delves into the 14 essential steps to master AI-driven hiring.</p>
+<h2>01 Understand Your Needs</h2>
+<p>Before diving into AI-driven hiring, it's crucial to pinpoint the challenges in your current process. Recognizing specific pain points that AI can address will set the foundation for a successful integration. A hiring agency might find that they're spending too much time on initial screenings — a task AI can expedite. Additionally, it's essential to determine which roles and skills will benefit most from AI-driven hiring.</p>
+<h2>02 Data Collection and Integration</h2>
+<p>Data is the backbone of any AI system. By gathering comprehensive information, including resumes, job descriptions, and interview feedback, you lay the groundwork for AI to operate effectively. For <strong>contract staffing services</strong>, this might mean consolidating data from various short-term roles. It's also vital to emphasize data quality and accuracy, ensuring that AI algorithms have the best possible information to make decisions.</p>
+<h2>03 Choose the Right AI Tools</h2>
+<p>The market is flooded with AI-powered tools, from sourcing platforms to Applicant Tracking Systems (ATS). Select solutions that align with your hiring goals and integrate seamlessly with your existing systems. For businesses focusing on contract staffing, tools that can quickly identify candidates with specific short-term skills might be particularly beneficial.</p>
+<h2>04 Resume Screening</h2>
+<p>AI can drastically reduce the time spent on resume screening. By parsing and analyzing resumes, AI can identify the most qualified candidates, ensuring that hiring professionals spend their time on the best prospects. This is especially beneficial in high-volume hiring scenarios or when dealing with a large number of <strong>contract staffing</strong> applications.</p>
+<h2>05 Automate Candidate Sourcing</h2>
+<p>Beyond job boards, AI can tap into social media, professional networks, and other online platforms to source candidates. This proactive approach ensures a wider talent pool and can be particularly effective for niche roles in contract staffing, where specific skills are in high demand.</p>
+<h2>06 Skill Assessment</h2>
+<p>AI-driven assessments provide an objective measure of a candidate's skills and competencies. By removing human bias from the equation, these tools ensure that the best candidates are identified based on merit. For businesses offering contract staffing solutions, this objectivity is crucial to match the right talent with the right projects.</p>
+<h2>07 Candidate Matching</h2>
+<p>Advanced AI algorithms can match candidates to job roles with unprecedented accuracy. By analyzing a multitude of factors, from skills to cultural fit, these tools ensure that the right person is placed in the right role. This precision is invaluable for <strong>contract staffing agencies</strong>, where mismatches can be costly.</p>
+<h2>08 Interview Automation</h2>
+<p>AI-powered interview platforms can conduct initial screenings, analyzing verbal and non-verbal cues to assess a candidate's suitability. By automating this stage, HR professionals can focus their efforts on the most promising candidates, ensuring a more efficient and effective hiring process.</p>
+<h2>09 Reduce Bias and Enhance Diversity</h2>
+<p>One of the most significant advantages of AI in hiring is its potential to reduce unconscious bias. By focusing on data and objective criteria, AI can help create a more diverse and inclusive workforce. This is especially important for organizations that value diversity and are looking to enhance their <strong>contract staffing</strong> practices.</p>
+<h2>10 Predictive Analytics</h2>
+<p>AI can predict a candidate's future performance and retention based on historical data. By leveraging these insights, hiring professionals can make more informed decisions, reducing turnover and enhancing productivity. For contract staffing, this predictive capability can be a game-changer, ensuring that placed candidates deliver the expected results.</p>
+<h2>11 Feedback Loops and Continuous Learning</h2>
+<p>AI systems improve over time by learning from feedback. By continuously feeding the system with data on hiring outcomes, you ensure that the AI becomes more accurate and effective. This iterative process is crucial for businesses aiming to stay at the forefront of AI-driven hiring and contract staffing solutions.</p>
+<h2>12 Compliance and Ethical Considerations</h2>
+<p>While AI offers numerous advantages, it's essential to ensure that its use in hiring complies with legal and ethical standards. This involves regular audits of AI algorithms to check for biases and ensuring transparency in the hiring process. For businesses engaged in <strong>contract staffing</strong>, adherence to these standards is not just a legal requirement but also a moral imperative.</p>
+<h2>13 Training and Change Management</h2>
+<p>Introducing AI into the hiring process requires a shift in mindset and skills. Providing training to HR professionals and hiring managers ensures that they can effectively leverage AI tools. For organizations transitioning to AI-driven contract staffing, change management strategies can help smooth the adoption process.</p>
+<h2>14 Measure Success</h2>
+<p>To ensure that AI is delivering the desired results, it's crucial to track and measure its impact. By analyzing key performance indicators (KPIs) such as time-to-hire, quality of hire, and cost-per-hire, businesses can gauge the effectiveness of their AI-driven hiring strategies. For contract staffing agencies, metrics like client satisfaction and placement rates can provide valuable insights.</p>
+<h2>Conclusion</h2>
+<p>AI has the potential to revolutionize the hiring process, from sourcing candidates to predicting their future performance. By following these 14 essential steps, businesses can harness the power of AI to enhance their hiring strategies and stay competitive in the talent market. Whether you're a contract staffing agency or a business looking to optimize your hiring process, AI offers a wealth of tools and capabilities to help you succeed.</p>`},
+  {id:"2",slug:"future-ai-recruitment-trends-2024",title:"The Future of AI Recruitment: Trends to Watch in 2024",category:"AI Recruitment",author:"Connect Tech+Talent",date:"Oct 28, 2023",readTime:"7 min read",excerpt:"Explore key AI recruitment trends shaping the future of hiring, from intelligent automation to predictive candidate insights.",image:"https://images.unsplash.com/photo-1573497620053-ea5300f94f21?w=1400&h=788&fit=crop&q=85",content:`<h2>Introduction</h2>
+<p>The recruitment landscape is undergoing a seismic shift. Artificial Intelligence is no longer a futuristic promise — it is the engine driving competitive hiring strategies in organizations worldwide. As we look toward 2024, several key AI recruitment trends are emerging that every hiring leader and staffing professional needs to understand.</p>
+<h2>01 Predictive Hiring Analytics</h2>
+<p>Leading organizations are moving beyond reactive hiring to predictive talent acquisition. AI models now analyze historical hiring data, employee performance records, and market signals to forecast which candidates are likely to succeed long-term. This shift from gut-feel to evidence-based prediction represents one of the most consequential changes in talent acquisition strategy.</p>
+<h2>02 Conversational AI and Chatbots</h2>
+<p>AI-powered chatbots are becoming the first point of contact in the recruitment funnel. These tools handle initial screenings, answer candidate FAQs, schedule interviews, and collect application data — all without human intervention. The best implementations feel natural and improve the candidate experience rather than adding friction.</p>
+<h2>03 AI-Enhanced Job Description Optimization</h2>
+<p>Natural language processing tools now analyze job postings for biased language, unclear requirements, and readability issues. In 2024, expect to see AI-assisted job writing becoming a standard step in the hiring workflow, helping organizations attract a broader, more diverse pool of qualified candidates.</p>
+<h2>04 Intelligent Candidate Matching</h2>
+<p>The era of keyword-matching ATS systems is giving way to semantic AI models that understand context, career trajectories, and transferable skills. These systems can identify strong candidates whose resumes don't include the exact phrases a recruiter searches for but who have the underlying capabilities the role requires.</p>
+<h2>05 Video Interview Intelligence</h2>
+<p>AI video interview platforms now analyze verbal responses, communication patterns, and engagement signals to provide structured insights to hiring managers. When used responsibly and transparently, these tools can reduce scheduling friction and increase consistency across early-stage interviews.</p>
+<h2>06 Ethical AI and Audit Trails</h2>
+<p>As AI becomes central to hiring decisions, regulatory scrutiny is intensifying globally. In 2024, responsible AI adoption requires organizations to maintain transparent audit trails, conduct regular bias testing, and communicate clearly with candidates about how AI is used in the evaluation process.</p>
+<h2>Conclusion</h2>
+<p>The AI recruitment trends shaping 2024 share a common thread: they amplify human judgment rather than attempt to replace it. Connect Tech+Talent helps enterprises navigate this landscape with purpose-built AI hiring strategies tailored to your industry and growth objectives.</p>`},
+  {id:"3",slug:"contract-staffing-drives-agility",title:"How Contract Staffing Drives Agility in a Dynamic Market",category:"Contract Staffing",author:"Connect Tech+Talent",date:"Oct 10, 2023",readTime:"6 min read",excerpt:"Discover how organizations leverage contract staffing models to access specialized talent, reduce time-to-hire, and stay competitive.",image:"https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1400&h=788&fit=crop&q=85",content:`<h2>Introduction</h2>
+<p>In a business environment defined by rapid technological change, shifting market conditions, and evolving project demands, organizational agility is not optional — it is existential. Contract staffing has emerged as one of the most effective mechanisms for enterprises to scale their workforce capabilities quickly, efficiently, and without the overhead of permanent hiring cycles.</p>
+<h2>01 Rapid Access to Specialized Talent</h2>
+<p>Contract staffing gives organizations immediate access to professionals with highly specific technical skills — machine learning engineers, cybersecurity specialists, cloud architects, and more. Rather than waiting months for a permanent hire, companies can deploy skilled contractors within weeks, keeping critical projects on track.</p>
+<h2>02 Cost-Effective Workforce Management</h2>
+<p>Permanent hires carry significant overhead: benefits, onboarding costs, training investments, and long-term compensation commitments. Contract staffing converts much of this fixed cost into a variable expense that scales with business needs, allowing organizations to invest capital where it creates the most value.</p>
+<h2>03 Risk Mitigation in Uncertain Markets</h2>
+<p>When market conditions shift or project priorities change, adjusting a contract workforce is far less disruptive than implementing large-scale permanent layoffs. Organizations that build contract staffing into their workforce strategy maintain the flexibility to respond to both opportunities and challenges without compromising their employer brand.</p>
+<h2>04 Knowledge Transfer and Organizational Learning</h2>
+<p>Experienced contractors often bring perspectives and best practices from multiple industries and organizations. This cross-pollination of ideas and methodologies accelerates innovation and helps internal teams develop new capabilities they might not have built organically.</p>
+<h2>05 Speed-to-Market Advantage</h2>
+<p>Contract staffing enables organizations to assemble high-performance project teams rapidly, compress delivery timelines, and bring initiatives to market before the window of opportunity closes. In technology and AI projects specifically, this speed advantage can be decisive.</p>
+<h2>Conclusion</h2>
+<p>Contract staffing is not a concession to workforce constraints — it is a strategic capability. Connect Tech+Talent specializes in providing enterprise clients with pre-vetted contract professionals across AI, technology, and data disciplines, with placement timelines that keep your projects moving.</p>`},
+  {id:"4",slug:"building-future-ready-workforce-age-of-ai",title:"Building a Future-Ready Workforce in the Age of AI",category:"Workforce Strategy",author:"Connect Tech+Talent",date:"Sep 21, 2023",readTime:"8 min read",excerpt:"Strategies for upskilling talent, fostering adaptability, and building high-performing teams for the AI-driven future.",image:"https://images.unsplash.com/photo-1552664730-d307ca884978?w=1400&h=788&fit=crop&q=85",content:`<h2>Introduction</h2>
+<p>The integration of Artificial Intelligence into enterprise operations is not just changing what work gets done — it is transforming how work is organized, who performs it, and what capabilities define a high-performing employee. Organizations that invest proactively in building AI-ready workforces will be far better positioned to capture the productivity and innovation benefits that AI makes possible.</p>
+<h2>01 Identify AI-Adjacent Skills Gaps</h2>
+<p>The first step in building an AI-ready workforce is understanding where your current team's capabilities fall short of your AI strategy requirements. Map existing roles against the skills required for AI-augmented workflows and identify where the gap is largest and most consequential.</p>
+<h2>02 Invest in Upskilling at Scale</h2>
+<p>Leading organizations are investing in structured upskilling programs that develop AI literacy across all functions — from finance and marketing to operations and HR. The goal is not to turn every employee into a data scientist but to ensure that all employees can work effectively alongside AI tools and interpret AI-generated outputs.</p>
+<h2>03 Foster a Culture of Adaptability</h2>
+<p>AI capabilities evolve rapidly. Building adaptability into your organizational culture — through mindset-first leadership, psychological safety, and rewarding experimentation — is as important as any specific technical training program. Organizations with high adaptability absorb technological change faster and with less disruption.</p>
+<h2>04 Combine Internal Development with Strategic Hiring</h2>
+<p>No upskilling program can close every skills gap. A pragmatic workforce strategy balances internal development with targeted external hiring for capabilities that are either too specialized or too time-sensitive to develop organically. The most effective organizations do both simultaneously.</p>
+<h2>05 Measure Workforce Readiness Continuously</h2>
+<p>Future-readiness is not a destination — it is a continuous state of assessment and adjustment. Organizations that implement regular workforce capability reviews maintain the situational awareness needed to respond proactively to emerging skill requirements before they become critical gaps.</p>
+<h2>Conclusion</h2>
+<p>The organizations that will lead in the AI era are those with the most adaptable, capable, and purposefully developed workforces. Connect Tech+Talent partners with enterprise leaders to design and execute workforce strategies that are built for the AI future.</p>`},
+  {id:"5",slug:"top-skills-demand-tech-roles-2024",title:"Top Skills in Demand for Tech Roles in 2024",category:"Technology Hiring",author:"Connect Tech+Talent",date:"Sep 05, 2023",readTime:"6 min read",excerpt:"A look at the top technical skills and competencies employers are prioritizing in today's competitive tech hiring landscape.",image:"https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=1400&h=788&fit=crop&q=85",content:`<h2>Introduction</h2>
+<p>The demand for technology talent continues to outpace supply across virtually every industry. Understanding which skills command the greatest premium in the current market helps hiring leaders make better sourcing decisions, set more competitive compensation benchmarks, and design job descriptions that attract the right candidates.</p>
+<h2>01 Machine Learning Engineering</h2>
+<p>ML engineers who can take models from prototype to production remain among the most sought-after professionals in the technology market. The gap between data scientists who build models and engineers who can deploy, monitor, and scale them in production environments is significant — and the latter are far harder to find.</p>
+<h2>02 Cloud Architecture and FinOps</h2>
+<p>Multi-cloud strategy is now standard practice for enterprise organizations. Architects who can design cost-efficient, resilient, and secure cloud infrastructures — and who understand FinOps principles for managing cloud spend — are in consistently high demand across industries.</p>
+<h2>03 Cybersecurity and AI Security</h2>
+<p>As AI systems become embedded in critical business processes, the security implications expand dramatically. Cybersecurity professionals with experience securing AI pipelines, protecting training data, and managing adversarial risks are commanding significant salary premiums in 2024.</p>
+<h2>04 Data Engineering</h2>
+<p>Every AI initiative is only as strong as its data infrastructure. Data engineers who can design robust ingestion pipelines, implement data quality frameworks, and build scalable data platforms are in consistent high demand — and their work is foundational to every other AI capability an organization wants to build.</p>
+<h2>05 AI Product Management</h2>
+<p>Technical skills alone do not deliver business value. AI PMs who can define meaningful use cases, manage stakeholder expectations, and guide cross-functional teams through AI product development are increasingly difficult to source and increasingly critical to AI program success.</p>
+<h2>06 Full-Stack Development with AI Integration</h2>
+<p>Modern full-stack developers are expected to understand how to integrate AI APIs, build LLM-powered features, and design user experiences that work effectively with AI-generated content. The bar for full-stack roles has risen significantly as AI becomes embedded in virtually every consumer and enterprise application.</p>
+<h2>Conclusion</h2>
+<p>The technology hiring landscape rewards specificity. Organizations that clearly define the skill profiles they need consistently outperform those that rely on general job descriptions. Connect Tech+Talent's AI Talent Matrix is purpose-built to help organizations identify, assess, and secure the exact technical profiles their initiatives require.</p>`},
+  {id:"6",slug:"6-tips-increase-hiring-process-efficiency",title:"6 Tips to Increase Your Hiring Process Efficiency",category:"Hiring Strategy",author:"Connect Tech+Talent",date:"Aug 18, 2023",readTime:"10 min read",excerpt:"Slow hiring costs you the best candidates. These six expert-level strategies will help your team reduce time-to-fill, improve quality of hire, and build a process that scales.",image:"https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1400&h=788&fit=crop&q=85",content:`<h2>Introduction</h2>
+<p>The competition for top talent has never been fiercer. According to LinkedIn's Global Talent Trends report, the average time-to-hire across industries now exceeds 40 days — and every extra day in your process is a day your best candidates are talking to your competitors. High-performing organizations understand that hiring efficiency is not just an operational convenience; it is a strategic advantage that directly impacts business outcomes, team morale, and revenue growth.</p>
+<h2>01 Redesign Your Job Description Architecture</h2>
+<p>Most job descriptions are written for compliance, not conversion. They list every responsibility and requirement the hiring manager can think of — and in doing so, they repel the exact candidates they are trying to attract. Research consistently shows that long, jargon-heavy job descriptions with inflated requirements reduce application rates by up to 35%.</p>
+<h2>02 Build a Structured, Stage-Gated Candidate Pipeline</h2>
+<p>Unstructured hiring processes are the single largest source of wasted recruiter time. When there are no clear stage definitions, no handoff protocols, and no agreed decision criteria at each checkpoint, strong candidates slip through the cracks while weak ones advance for weeks.</p>
+<h2>03 Deploy AI-Powered Screening to Handle Volume Without Sacrificing Quality</h2>
+<p>For roles that receive high application volumes, manual resume screening is both a time sink and an equity risk. AI-powered applicant screening tools address this by applying consistent, defined criteria across every application. For <strong>contract staffing</strong> workflows where speed is critical, AI screening can reduce time-to-shortlist by 70%.</p>
+<h2>04 Standardize Interviews with Role-Specific Scorecards</h2>
+<p>Unstructured interviews are among the weakest predictors of job performance in the research literature. Structured interviews with pre-defined, role-specific scorecards are <strong>2x more predictive</strong> of on-the-job performance than unstructured ones.</p>
+<h2>05 Compress Your Timeline with Parallel Processing</h2>
+<p>The single largest source of unnecessary delay in most hiring processes is sequential scheduling — steps that could happen simultaneously are instead queued one behind the other. Map your current hiring process end-to-end and identify every step that is unnecessarily sequential.</p>
+<h2>06 Build Proactive Talent Pipelines Before You Have Open Roles</h2>
+<p>Reactive hiring — opening a role and beginning a search from scratch — is the most expensive and slowest approach to talent acquisition. Organizations with mature talent pipeline strategies fill roles <strong>40% faster</strong> and at <strong>30% lower cost-per-hire</strong> than those that start every search cold.</p>
+<h2>Conclusion</h2>
+<p>Hiring efficiency is not about moving faster for its own sake — it is about eliminating the systemic inefficiencies that separate your organization from the talent it needs to grow. Connect Tech+Talent works with hiring leaders to design and implement hiring process transformations grounded in these principles.</p>`}
+];
+
+// ── Utilities ──────────────────────────────────────────────
+let obs=null;
+const ARR=s=>s.replace(/<[^>]+>/g,'').trim();
+
+function sv(v,slug){
+  document.getElementById('vl').classList.toggle('hid',v!=='listing');
+  document.getElementById('va').classList.toggle('hid',v!=='article');
+  if(v==='listing'){window.scrollTo({top:0,behavior:'smooth'});}
+  else if(slug){renderArt(slug);window.scrollTo({top:0});}
+}
+
+// ── Reading progress bar ───────────────────────────────────
+window.addEventListener('scroll',()=>{
+  const s=window.scrollY;
+  const d=document.documentElement.scrollHeight-window.innerHeight;
+  document.getElementById('progress-bar').style.width=(d>0?(s/d)*100:0)+'%';
+},{passive:true});
+
+// ── Render listing grid ────────────────────────────────────
+function rl(){
+  document.getElementById('bgrid').innerHTML=POSTS.map(p=>`
+  <article class="bc2" onclick="sv('article','${p.slug}')">
+    <div class="ci"><img src="${p.image}" alt="${p.title}" loading="lazy"/></div>
+    <div class="cb">
+      <span class="cat">${p.category}</span>
+      <h2 class="ct2">${p.title}</h2>
+      <div class="cm">${p.author} &bull; ${p.date} &bull; ${p.readTime}</div>
+      <p class="ce">${p.excerpt}</p>
+      <span class="lm">Learn More <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10m-4-4l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    </div>
+  </article>`).join('');
+}
+
+// ── Extract h2 headings and assign IDs ─────────────────────
+function exH(html){
+  const heads=[];let si=0;
+  const proc=html.replace(/<h2([^>]*)>([\s\S]*?)<\/h2>/gi,(_,a,inn)=>{
+    const rawText=ARR(inn);
+    // Strip leading numeric prefix e.g. "01 ", "14 "
+    const label=rawText.replace(/^\d+\s+/,'');
+    const cleanInn=inn.replace(/^(\s*)(\d+\s+)/,'$1');
+    let id;
+    if(label.toLowerCase().startsWith('intro'))id='introduction';
+    else if(label.toLowerCase().startsWith('conclusion'))id='conclusion';
+    else{si++;id='section-'+si;}
+    heads.push({id,label});
+    return`<h2${a} id="${id}" style="scroll-margin-top:100px">${cleanInn}</h2>`;
+  });
+  return{proc,heads};
+}
+
+// ── TOC active state ───────────────────────────────────────
+function setAc(id){document.querySelectorAll('.ta').forEach(a=>a.classList.toggle('ac',a.dataset.id===id));}
+function scrollTo2(id){
+  const el=document.getElementById(id);if(!el)return;
+  window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-100,behavior:'smooth'});
+  setAc(id);
+}
+function setupObs(heads){
+  if(obs)obs.disconnect();
+  setTimeout(()=>{
+    const tgts=heads.map(h=>document.getElementById(h.id)).filter(Boolean);
+    if(!tgts.length)return;
+    obs=new IntersectionObserver(entries=>{
+      const vis=entries.filter(e=>e.isIntersecting).sort((a,b)=>a.boundingClientRect.top-b.boundingClientRect.top);
+      if(vis.length)setAc(vis[0].target.id);
+    },{rootMargin:'-80px 0px -60% 0px',threshold:0});
+    tgts.forEach(el=>obs.observe(el));
+    if(heads.length)setAc(heads[0].id);
+  },120);
+}
+
+// ── Skim time estimate (~500 wpm) ──────────────────────────
+function skimTime(html){
+  const words=html.replace(/<[^>]+>/g,'').split(/\s+/).filter(Boolean).length;
+  return Math.max(1,Math.ceil(words/500))+' min';
+}
+
+// ── Render article ─────────────────────────────────────────
+function renderArt(slug){
+  const p=POSTS.find(x=>x.slug===slug);if(!p){sv('listing');return;}
+  document.getElementById('abcat').textContent=p.category;
+  document.getElementById('acat').textContent=p.category;
+  document.getElementById('atit').textContent=p.title;
+  document.getElementById('aauth').textContent=p.author;
+  document.getElementById('adate').textContent=p.date;
+  document.getElementById('art').textContent=p.readTime;
+  document.getElementById('askim').textContent=skimTime(p.content||'');
+  const hi=document.getElementById('ahimg');hi.src=p.image;hi.alt=p.title;
+  const{proc,heads}=exH(p.content||'');
+  document.getElementById('acont').innerHTML=proc;
+  const tl=document.getElementById('tocl');
+  if(heads.length>1){
+    document.getElementById('atoc').style.display='';
+    tl.innerHTML=heads.map(h=>`<li><a class="ta" data-id="${h.id}" onclick="scrollTo2('${h.id}');return false" href="#${h.id}">${h.label}</a></li>`).join('');
+    setupObs(heads);
+  }else{document.getElementById('atoc').style.display='none';tl.innerHTML='';}
+
+  // Share button wiring
+  const url=encodeURIComponent(location.href);const t=encodeURIComponent(p.title);
+  document.getElementById('sh-li').onclick=()=>window.open(`https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${t}`,'_blank','noopener');
+  document.getElementById('sh-tw').onclick=()=>window.open(`https://twitter.com/intent/tweet?url=${url}&text=${t}`,'_blank','noopener');
+  document.getElementById('sh-em').onclick=()=>location.href=`mailto:?subject=${t}&body=${url}`;
+
+  // Related posts
+  const rel=POSTS.filter(x=>x.slug!==slug).slice(0,3);
+  document.getElementById('rgrid').innerHTML=rel.map(rp=>`
+  <article class="bc2" onclick="sv('article','${rp.slug}')">
+    <div class="ci"><img src="${rp.image}" alt="${rp.title}" loading="lazy"/></div>
+    <div class="cb">
+      <span class="cat">${rp.category}</span>
+      <h3 class="ct2" style="font-size:14px">${rp.title}</h3>
+      <div class="cm">${rp.author} &bull; ${rp.date}</div>
+      <p class="ce">${rp.excerpt}</p>
+      <span class="lm">Learn More <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10m-4-4l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    </div>
+  </article>`).join('');
+
+  // Prev / Next
+  const idx=POSTS.findIndex(x=>x.slug===slug);
+  const prev=idx<POSTS.length-1?POSTS[idx+1]:null;
+  const next=idx>0?POSTS[idx-1]:null;
+  document.getElementById('ppst').innerHTML=prev?`<div class="pl2" onclick="sv('article','${prev.slug}')"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 12L6 8l4-4" stroke-linecap="round" stroke-linejoin="round"/></svg><div><span class="nlb">Previous Article</span><span class="ntit">${prev.title}</span></div></div>`:'<div></div>';
+  document.getElementById('npst').innerHTML=next?`<div class="nx" onclick="sv('article','${next.slug}')"><div style="text-align:right"><span class="nlb">Next Article</span><span class="ntit">${next.title}</span></div><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 4l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>`:'<div></div>';
+}
+
+rl();sv('listing');
+</script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+# ─── Decap CMS Configuration ───────────────────────────────────────────────────
+#
+# LOCAL DEVELOPMENT
+#   1. Run:  npx decap-server        (in one terminal)
+#   2. Run:  npm run dev             (in another terminal)
+#   3. Open: http://localhost:3000/admin/
+#   local_backend: true makes the CMS skip Bitbucket auth on localhost
+#   and write files directly to your local content/blog/ folder.
+#
+# PRODUCTION (once you have the Bitbucket OAuth Key)
+#   1. Ask the client to create a Bitbucket OAuth Consumer:
+#      - Bitbucket → Workspace Settings → Apps and features → OAuth consumers
+#      - Callback URL: https://connecttechtalent.com/admin/
+#      - Permissions: Account:Read + Repositories:Write
+#      - Copy the Key (not the Secret)
+#   2. Replace ADD_BITBUCKET_KEY_HERE below with the Key
+#   3. Commit and deploy — the CMS will use Bitbucket login in production
+# ───────────────────────────────────────────────────────────────────────────────
+
+# Enables local filesystem proxy (used automatically when on localhost)
+local_backend: true
+
+# ── Bitbucket backend ──────────────────────────────────────────────────────────
+# Works in production once app_id is filled in.
+# On localhost, local_backend above takes over so app_id is not needed locally.
+backend:
+  name: bitbucket
+  repo: cteldev/ctt-web           # workspace/repo — update if workspace slug differs
+  branch: main                    # branch CMS commits will target
+  auth_type: implicit             # no server-side auth needed
+  app_id: ADD_BITBUCKET_KEY_HERE  # ← paste OAuth Consumer Key here when ready
+
+# ── Media uploads ──────────────────────────────────────────────────────────────
+# Images uploaded in the CMS go to public/media/blog/
+# and are referenced in posts as /media/blog/filename.jpg
+media_folder: "public/media/blog"
+public_folder: "/media/blog"
+
+# ── Blog collection ────────────────────────────────────────────────────────────
+collections:
+  - name: "blog"
+    label: "Blog Posts"
+    label_singular: "Blog Post"
+    folder: "content/blog"
+    create: true
+    delete: true
+    slug: "{{slug}}"              # filename = slugified title
+    preview_path: "media/{{slug}}"
+
+    fields:
+      - label: "Title"
+        name: "title"
+        widget: "string"
+        hint: "Article headline — keep under 80 characters"
+
+      - label: "Slug"
+        name: "slug"
+        widget: "string"
+        hint: "URL-friendly ID, e.g. ai-hiring-trends-2025 (auto-filled from title, can be edited)"
+        required: false
+
+      - label: "Category"
+        name: "category"
+        widget: "select"
+        options:
+          - "AI Hiring"
+          - "Tech Hiring"
+          - "Remote Work"
+          - "Workforce Strategy"
+          - "Staffing & Recruiting"
+          - "Leadership"
+          - "Industry Insights"
+        hint: "Shown on the card and article badge"
+
+      - label: "Author"
+        name: "author"
+        widget: "string"
+        default: "Connect Tech+Talent"
+
+      - label: "Publish Date"
+        name: "date"
+        widget: "datetime"
+        date_format: "YYYY-MM-DD"
+        time_format: false
+        hint: "Controls sort order on the listing page"
+
+      - label: "Read Time"
+        name: "readTime"
+        widget: "string"
+        hint: "e.g. 8 min read"
+        required: false
+
+      - label: "Excerpt"
+        name: "excerpt"
+        widget: "text"
+        hint: "2–3 sentence summary shown on listing cards and meta description. Keep under 200 characters."
+
+      - label: "Hero Image"
+        name: "image"
+        widget: "image"
+        hint: "16:9 ratio recommended, min 1200×675px"
+        required: false
+
+      - label: "Featured"
+        name: "featured"
+        widget: "boolean"
+        default: false
+        required: false
+        hint: "Pin this post to the top of the listing"
+
+      - label: "Tags"
+        name: "tags"
+        widget: "list"
+        required: false
+        hint: "Optional comma-separated tags"
+
+      - label: "Body"
+        name: "body"
+        widget: "markdown"
+        hint: "Full article body. Use ## for section headings (they become TOC entries)."
+
+    # Disable the live preview panel — it triggers the image-widget crash bug
+    # in Decap CMS versions above 3.3.3. The real Next.js site is the preview.
+    editor:
+      preview: false
+
+# ── Global editor defaults ────────────────────────────────────────────────────
+editor:
+  preview: false
