@@ -20,15 +20,13 @@
 # Enables local filesystem proxy (used automatically when on localhost)
 local_backend: true
 
-# ── Bitbucket backend ──────────────────────────────────────────────────────────
-# Works in production once app_id is filled in.
-# On localhost, local_backend above takes over so app_id is not needed locally.
+# ── GitHub backend ───────────────────────────────────────────────────────────
+# Works in production with GitHub OAuth.
+# On localhost, local_backend above takes over so no auth needed locally.
 backend:
-  name: bitbucket
-  repo: cteldev/ctt-web           # workspace/repo — update if workspace slug differs
-  branch: main                    # branch CMS commits will target
-  auth_type: implicit             # no server-side auth needed
-  app_id: ADD_BITBUCKET_KEY_HERE  # ← paste OAuth Consumer Key here when ready
+  name: github
+  repo: Karthik-Leadwalnut007/ctt-web   # GitHub username/repo
+  branch: main                           # branch CMS commits will target
 
 # ── Media uploads ──────────────────────────────────────────────────────────────
 # Images uploaded in the CMS go to public/media/blog/
