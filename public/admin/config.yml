@@ -27,6 +27,7 @@ backend:
   name: github
   repo: Karthik-Leadwalnut007/ctt-web   # GitHub username/repo
   branch: main                           # branch CMS commits will target
+  base_url: https://ctt-web.vercel.app   # ← our custom OAuth proxy on Vercel
 
 # ── Media uploads ──────────────────────────────────────────────────────────────
 # Images uploaded in the CMS go to public/media/blog/
