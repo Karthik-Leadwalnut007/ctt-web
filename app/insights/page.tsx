@@ -52,11 +52,16 @@ export const metadata: Metadata = {
 }
 
 export default async function InsightsPage() {
-  const posts = await getAllPosts()
+  const allPosts = await getAllPosts()
+  // Insights = AI-focused strategic content for CIOs and tech leaders
+  const insightsPosts = allPosts.filter((p) =>
+    ["AI Hiring", "AI Recruitment", "Industry Insights", "Leadership", "Workforce Strategy"].includes(p.category)
+  )
   return (
     <Suspense fallback={<div className="min-h-screen bg-gray-50" />}>
-      <MediaPageClient posts={posts} />
+      <MediaPageClient posts={insightsPosts} />
     </Suspense>
   )
 }
+
 
