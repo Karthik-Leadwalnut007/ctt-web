@@ -64,10 +64,12 @@
     "rehype-sanitize": "^6.0.0",
     "remark": "^15.0.1",
     "remark-html": "^16.0.1",
+    "remark-parse": "^11.0.0",
     "rxjs": "^7.8.2",
     "sonner": "^1.7.1",
     "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7",
+    "unified": "^11.0.5",
     "vaul": "^0.9.6",
     "zod": "^3.24.1"
   },
