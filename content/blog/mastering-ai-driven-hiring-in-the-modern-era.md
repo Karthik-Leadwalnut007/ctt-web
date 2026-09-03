@@ -1,5 +1,6 @@
 ---
 title: Mastering AI-Driven Hiring in the Modern Era
+slug: mastering-ai-driven
 category: AI Hiring
 author: Connect Tech+Talent
 date: 2023-11-16
