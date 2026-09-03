@@ -76,44 +76,43 @@
 
   /* Reduced all font sizes by approximately 50% for better readability */
   /* Page Titles - Main H1 headings */
-  h1,
+  h1:not(.blog-layout h1):not(.blog-layout *),
   .page-title {
     @apply text-2xl md:text-3xl lg:text-3xl font-bold tracking-tight;
   }
 
   /* Section Titles - H2 headings */
-  h2,
+  h2:not(.blog-layout h2):not(.blog-layout *),
   .section-title {
     @apply text-xl md:text-2xl lg:text-2xl font-bold tracking-tight;
   }
 
   /* Subsection Titles - H3 headings */
-  h3,
+  h3:not(.blog-layout h3):not(.blog-layout *),
   .subsection-title {
     @apply text-lg md:text-xl lg:text-xl font-semibold tracking-tight;
   }
 
   /* Smaller Headings - H4 */
-  h4,
+  h4:not(.blog-layout h4):not(.blog-layout *),
   .heading-4 {
     @apply text-base md:text-lg font-semibold;
   }
 
   /* Card/Component Titles - H5 */
-  h5,
+  h5:not(.blog-layout h5):not(.blog-layout *),
   .card-title {
     @apply text-sm md:text-base font-semibold;
   }
 
   /* Small Headings - H6 */
-  h6,
+  h6:not(.blog-layout h6):not(.blog-layout *),
   .heading-6 {
     @apply text-sm md:text-base font-semibold;
   }
 
-  /* Standardized all body text to text-sm (14px) across all breakpoints - removed responsive scaling */
-  /* Body Text - Standard paragraphs */
-  p,
+  /* Body Text - Standard paragraphs (excluded from blog layout) */
+  p:not(.blog-layout p):not(.blog-layout *),
   .body-text {
     @apply text-[16px] font-light leading-relaxed;
   }
@@ -128,30 +127,30 @@
     @apply text-[16px] font-light leading-relaxed;
   }
 
-  /* Fixed list indentation - removed indent-8 and added proper list styling */
+  /* Fixed list indentation - excluded from blog layout */
   /* Unordered Lists - Bullet points */
-  ul {
+  ul:not(.blog-layout ul):not(.blog-layout *) {
     @apply list-disc pl-8 space-y-2 my-4;
   }
 
   /* Ordered Lists - Numbers */
-  ol {
+  ol:not(.blog-layout ol):not(.blog-layout *) {
     @apply list-decimal pl-8 space-y-2 my-4;
   }
 
   /* Nested Lists */
-  ul ul,
-  ol ul {
+  ul:not(.blog-layout ul):not(.blog-layout *) ul,
+  ol:not(.blog-layout ol):not(.blog-layout *) ul {
     @apply list-disc pl-6 mt-2;
   }
 
-  ul ol,
-  ol ol {
+  ul:not(.blog-layout ul):not(.blog-layout *) ol,
+  ol:not(.blog-layout ol):not(.blog-layout *) ol {
     @apply list-decimal pl-6 mt-2;
   }
 
-  /* List Items - removed indent-8, now properly indented via parent ul/ol */
-  li,
+  /* List Items - excluded from blog layout */
+  li:not(.blog-layout li):not(.blog-layout *),
   .list-item {
     @apply text-[16px] font-light leading-relaxed;
   }
@@ -180,8 +179,8 @@
     @apply text-sm font-medium text-accent;
   }
 
-  /* Link Styling */
-  a:not(.no-link-style) {
+  /* Link Styling — excluded from blog layout which has its own link styles */
+  a:not(.no-link-style):not(.blog-layout a):not(.blog-layout *) {
     @apply font-light hover:text-primary transition-colors;
   }
 
