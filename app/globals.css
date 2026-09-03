@@ -506,3 +506,115 @@
   }
 }
 
+/* ── Hard reset: neutralise ALL Tailwind @layer base overrides inside blog ───
+   These rules sit OUTSIDE @layer so specificity beats the base layer.
+   This is the definitive fix for links/headings/paragraphs going wrong.     */
+
+/* Reset headings — let blog-prose / inline styles take full control */
+.blog-layout h1,
+.blog-layout h2,
+.blog-layout h3,
+.blog-layout h4,
+.blog-layout h5,
+.blog-layout h6 {
+  font-size: revert;
+  font-weight: revert;
+  letter-spacing: revert;
+  color: revert;
+  line-height: revert;
+  tracking: revert;
+}
+
+/* Reset paragraphs */
+.blog-layout p {
+  font-size: revert;
+  font-weight: revert;
+  line-height: revert;
+  color: revert;
+}
+
+/* Reset lists */
+.blog-layout ul,
+.blog-layout ol {
+  list-style: revert;
+  padding-left: revert;
+  margin: revert;
+}
+.blog-layout li {
+  font-size: revert;
+  font-weight: revert;
+  line-height: revert;
+}
+
+/* Reset links — ONLY apply teal color to real <a> tags inside .blog-prose
+   so that normal body text (which isn't wrapped in <a>) stays dark grey    */
+.blog-layout a {
+  color: inherit;
+  font-weight: inherit;
+  transition: none;
+}
+
+/* Inside prose: real links get teal (matches reference .prose a) */
+.blog-prose a {
+  color: var(--blog-p) !important;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-weight: inherit;
+}
+
+/* Prose headings — exact match to reference .prose h2 / h3 */
+.blog-prose h2 {
+  font-size: 22px !important;
+  font-weight: 700 !important;
+  color: var(--blog-g9) !important;
+  margin: 2.5rem 0 0.875rem !important;
+  line-height: 1.3 !important;
+  letter-spacing: normal !important;
+  scroll-margin-top: 100px;
+}
+.blog-prose h3 {
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  color: var(--blog-g8) !important;
+  margin: 2rem 0 0.75rem !important;
+  line-height: 1.3 !important;
+  letter-spacing: normal !important;
+  scroll-margin-top: 100px;
+}
+
+/* Prose paragraphs */
+.blog-prose p {
+  margin-bottom: 1.4rem !important;
+  line-height: 1.8 !important;
+  font-size: 18px !important;
+  font-weight: 300 !important;
+  color: var(--blog-g6) !important;
+}
+
+/* Prose lists */
+.blog-prose ul {
+  list-style: disc !important;
+  padding-left: 1.75rem !important;
+  margin-bottom: 1.4rem !important;
+}
+.blog-prose ol {
+  list-style: decimal !important;
+  padding-left: 1.75rem !important;
+  margin-bottom: 1.4rem !important;
+}
+.blog-prose li {
+  font-size: 17px !important;
+  color: var(--blog-g6) !important;
+  margin-bottom: 8px !important;
+  line-height: 1.7 !important;
+  font-weight: 300 !important;
+}
+
+/* Article title (h1 inside blog header — NOT inside .blog-prose) */
+.blog-layout .blog-article-title {
+  font-weight: 800 !important;
+  color: var(--blog-g9) !important;
+  line-height: 1.13 !important;
+  font-size: clamp(30px, 4vw, 54px) !important;
+  letter-spacing: normal !important;
+}

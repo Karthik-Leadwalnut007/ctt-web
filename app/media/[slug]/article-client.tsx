@@ -107,7 +107,7 @@ export default function DynamicArticleContent({
           </div>
         )}
 
-        <h1 style={{ fontWeight: 800, color: "var(--blog-g9)", lineHeight: 1.13, marginBottom: 28, maxWidth: 900, fontSize: "clamp(30px, 4vw, 54px)" }}>
+        <h1 className="blog-article-title" style={{ marginBottom: 28, maxWidth: 900 }}>
           {post.title}
         </h1>
 
@@ -153,16 +153,24 @@ export default function DynamicArticleContent({
         </div>
       )}
 
-      {/* Two-column body */}
+      {/* Two-column body: TOC sidebar + prose (or full-width if no headings) */}
       <div style={{ padding: "48px 0 64px" }}>
         <div className="max-w-[1280px] mx-auto px-8 md:px-4">
-          <div className="article-body-grid">
-            <TocSidebar headings={headings} />
+          {headings.length >= 2 ? (
+            <div className="article-body-grid">
+              <TocSidebar headings={headings} />
+              <div
+                className="blog-prose"
+                dangerouslySetInnerHTML={{ __html: processedContent }}
+              />
+            </div>
+          ) : (
             <div
               className="blog-prose"
+              style={{ maxWidth: 760, margin: "0 auto" }}
               dangerouslySetInnerHTML={{ __html: processedContent }}
             />
-          </div>
+          )}
         </div>
       </div>
 
