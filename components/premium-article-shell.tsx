@@ -25,7 +25,7 @@
 import { useState, useEffect, useCallback, type ReactNode } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { getRelatedPosts, getAdjacentPosts } from "@/lib/blog-data"
+import type { LocalBlogPost } from "@/lib/blog-data"
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Types
@@ -229,7 +229,7 @@ function TocSidebar({ items }: { items: TocItem[] }) {
 // Related Card (same .bc2 style as listing cards)
 // ─────────────────────────────────────────────────────────────────────────────
 
-function RelatedCard({ post }: { post: ReturnType<typeof getRelatedPosts>[number] }) {
+function RelatedCard({ post }: { post: LocalBlogPost }) {
   return (
     <Link href={post.link} className="no-link-style group">
       <article className="blog-card h-full">
@@ -295,8 +295,11 @@ export default function PremiumArticleShell({
   const [progress, setProgress] = useState(0)
   const [copied, setCopied] = useState(false)
 
-  const relatedPosts = getRelatedPosts(slug, 3)
-  const { prev, next } = getAdjacentPosts(slug)
+  // Related posts / prev / next are now handled server-side via article-client.tsx
+  // for CMS-driven posts. This shell is kept for backward compatibility.
+  const relatedPosts: LocalBlogPost[] = []
+  const prev = null as LocalBlogPost | null
+  const next = null as LocalBlogPost | null
 
   // ── Auto-build TOC from h2 headings when tocItems not supplied ────────────
   const [autoToc, setAutoToc] = useState<TocItem[]>([])

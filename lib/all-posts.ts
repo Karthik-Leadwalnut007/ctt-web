@@ -1,33 +1,21 @@
 /**
  * lib/all-posts.ts
  *
- * Server-only module. Merges Decap CMS markdown posts (content/blog/*.md)
- * with the legacy HTML posts from lib/blog-data.ts into a single sorted list.
+ * Server-only module. Returns blog posts exclusively from Decap CMS
+ * (content/blog/*.md). Hardcoded legacy posts have been removed.
  *
- * - Markdown posts take priority: if a CMS post has the same slug as a legacy
- *   post, the CMS version wins.
- * - Result is sorted newest-first by dateISO.
- *
- * Use this everywhere instead of importing localBlogPosts directly.
+ * All content must be authored through the Decap CMS at /admin.
  */
 
-import { localBlogPosts, type LocalBlogPost } from "./blog-data"
 import { getMarkdownPosts } from "./markdown-posts"
+import type { LocalBlogPost } from "./blog-data"
 
-/** All posts: CMS markdown + legacy HTML, merged and sorted newest-first */
+/** All posts from Decap CMS, sorted newest-first */
 export async function getAllPosts(): Promise<LocalBlogPost[]> {
-  const markdownPosts = await getMarkdownPosts()
-
-  // Legacy posts whose slugs aren't overridden by a CMS post
-  const cmsSlugs = new Set(markdownPosts.map((p) => p.slug))
-  const filteredLegacy = localBlogPosts.filter((p) => !cmsSlugs.has(p.slug))
-
-  return [...markdownPosts, ...filteredLegacy].sort(
-    (a, b) => new Date(b.dateISO).getTime() - new Date(a.dateISO).getTime()
-  )
+  return await getMarkdownPosts()
 }
 
-/** Find a single post by slug across both sources */
+/** Find a single post by slug */
 export async function getPostBySlug(slug: string): Promise<LocalBlogPost | null> {
   const posts = await getAllPosts()
   return posts.find((p) => p.slug === slug) ?? null

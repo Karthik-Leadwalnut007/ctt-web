@@ -1,7 +1,7 @@
 // lib/wordpress/api.ts
 import { transformWordPressPosts, transformWordPressPostToBlogPost } from "./utils";
 import type { WordPressPost, BlogPost, WordPressPostsResponseMeta } from "./types";
-import { getAllLocalBlogPosts, getLocalBlogPostBySlug } from "../blog-data";
+// Legacy local blog post fallbacks removed — all posts come from Decap CMS.
 
 const DEFAULT_REST_BASE =
   process.env.NEXT_PUBLIC_WORDPRESS_REST_URL ||
@@ -60,26 +60,7 @@ async function fetchWordPressPosts(options: FetchPostsOptions = {}): Promise<{
   };
 }
 
-/**
- * Convert a LocalBlogPost to the shared BlogPost interface.
- */
-function localPostToBlogPost(
-  local: ReturnType<typeof getAllLocalBlogPosts>[number]
-): BlogPost {
-  return {
-    id: local.id,
-    title: local.title,
-    excerpt: local.excerpt,
-    link: local.link,
-    image: local.image,
-    author: local.author,
-    date: local.date,
-    slug: local.slug,
-    category: local.category,
-    readTime: local.readTime,
-    content: local.content,
-  };
-}
+// localPostToBlogPost removed — no longer needed without local post fallback.
 
 /**
  * Fetch all blog posts from WordPress REST API.
@@ -94,8 +75,8 @@ export async function fetchAllBlogPosts(): Promise<BlogPost[]> {
   } catch (error) {
     console.error("Error fetching blog posts from WordPress REST API:", error);
   }
-  // Fallback to local data
-  return getAllLocalBlogPosts().map(localPostToBlogPost);
+  // CMS is now the source of truth — WordPress fallback returns empty
+  return [];
 }
 
 /**
@@ -126,19 +107,12 @@ export async function fetchBlogPosts(
     console.error("Error fetching paginated blog posts from REST API:", error);
   }
 
-  // Fallback: paginate local data
-  const allLocal = getAllLocalBlogPosts();
-  const total = allLocal.length;
-  const totalPages = Math.max(1, Math.ceil(total / perPage));
-  const safePage = Math.min(page, totalPages);
-  const start = (safePage - 1) * perPage;
-  const slice = allLocal.slice(start, start + perPage);
-
+  // Fallback: no local data — CMS is source of truth
   return {
-    posts: slice.map(localPostToBlogPost),
-    hasNextPage: safePage < totalPages,
-    hasPreviousPage: safePage > 1,
-    totalPages,
+    posts: [],
+    hasNextPage: false,
+    hasPreviousPage: false,
+    totalPages: 1,
   };
 }
 
@@ -147,13 +121,8 @@ export async function fetchBlogPosts(
  * Checks local data first (instant), then falls back to WordPress REST API.
  */
 export async function fetchBlogPostBySlug(slug: string): Promise<BlogPost | null> {
-  // ── Check local data first — instant, no network needed ──────────────────
-  const localPost = getLocalBlogPostBySlug(slug);
-  if (localPost) {
-    return localPostToBlogPost(localPost);
-  }
-
-  // ── Not in local data — try WordPress REST API ────────────────────────────
+  // CMS is now source of truth — no local post lookup
+  // Try WordPress REST API for non-CMS posts only
   try {
     const { posts } = await fetchWordPressPosts({ slug, perPage: 1 });
     if (posts && posts.length > 0) {
