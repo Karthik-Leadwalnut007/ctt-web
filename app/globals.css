@@ -279,7 +279,329 @@
   }
 }
 
+/* ─── Article page layout — two-column grid + responsive utilities ─────────── */
+
+/* Sticky TOC rail — 260px left column, desktop only.
+   NO max-height, NO overflow — the box grows with its content.
+   The page scroll handles navigation, not an internal scrollbar. */
+.toc-rail {
+  display: none;
+  position: sticky;
+  top: 88px;
+  align-self: start;      /* grid: don't stretch to match article height */
+  height: fit-content;    /* grow to exactly the height of TOC items */
+  overflow: visible;      /* never clip content */
+}
+.toc-rail::-webkit-scrollbar { display: none; } /* safety — no scrollbar even if something else sets overflow */
+@media (min-width: 1100px) {
+  .toc-rail { display: block; }
+}
+
+/* Mobile TOC accordion — shown below 1100px, hidden above */
+.mobile-toc { display: block; }
+@media (min-width: 1100px) {
+  .mobile-toc { display: none; }
+}
+
+/* Two-column grid: 260px TOC + flexible article body */
+.article-two-col {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: 56px;
+  align-items: start;
+}
+/* Explicitly pin TOC to column 1 and prose to column 2 — order-independent */
+.article-two-col .toc-rail,
+.article-two-col aside {
+  grid-column: 1;
+  grid-row: 1;
+}
+.article-two-col > div {
+  grid-column: 2;
+  grid-row: 1;
+}
+@media (max-width: 1099px) {
+  .article-two-col { grid-template-columns: 1fr; }
+  .article-two-col .toc-rail,
+  .article-two-col aside { grid-column: 1; grid-row: 2; }
+  .article-two-col > div { grid-column: 1; grid-row: 1; }
+}
+
+/* Related posts — 3 columns on desktop, 2 on tablet, 1 on mobile */
+.related-3-col {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+@media (max-width: 1024px) {
+  .related-3-col { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .related-3-col { grid-template-columns: 1fr; }
+}
+
+/* Prev/next navigation — 2 columns on sm+, 1 on mobile */
+.prev-next-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+@media (max-width: 640px) {
+  .prev-next-grid { grid-template-columns: 1fr; }
+}
+
+/* Share button hover state */
+.share-btn:hover {
+  border-color: #1b99a7 !important;
+  color: #1b99a7 !important;
+  background: rgba(27, 153, 167, 0.05) !important;
+  transform: scale(1.1);
+}
+
+/* Prev/next card hover */
+.pn-card:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08) !important;
+  border-color: rgba(27, 153, 167, 0.3) !important;
+}
+
+/* Related card hover */
+.related-card {
+  transition: box-shadow 0.25s, transform 0.25s, border-color 0.25s;
+}
+.related-card:hover {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12) !important;
+  transform: translateY(-3px);
+  border-color: #D1D5DB !important;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Article page — mobile / responsive overrides
+   All class names are applied in article-client.tsx via className="art-*"
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/* Outer page wrapper — Inter font to match the HTML reference design */
+.art-page {
+  min-height: 100vh;
+  background: #fff;
+  font-family: var(--font-inter), 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Container — consistent horizontal padding */
+.art-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Breadcrumb bar */
+.art-breadcrumb-bar {
+  border-bottom: 1px solid #F3F4F6;
+  background: #F9FAFB;
+  padding: 10px 0;
+}
+.art-breadcrumb-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* Article header area */
+.art-header { padding: 28px 0 0; }
+
+/* Meta row: author + date + read time + share */
+.art-meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid #F3F4F6;
+}
+.art-meta-left {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 12px;
+  font-size: 13px;
+  color: #6B7280;
+}
+.art-share-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+/* Hero image wrapper */
+.art-hero-wrap {
+  padding: 32px 0 0;
+}
+.art-hero-img {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  aspect-ratio: 16/9;
+  border-radius: 24px;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.12), 0 4px 16px rgba(0,0,0,0.07);
+  background: #F3F4F6;
+}
+
+/* Two-column section wrapper */
+.art-body-section { padding: 48px 0 64px; }
+
+/* Newsletter section */
+.art-newsletter { padding: 64px 0; }
+.art-newsletter-form {
+  display: flex;
+  gap: 12px;
+  max-width: 420px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+.art-newsletter-input {
+  flex: 1;
+  min-width: 200px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-size: 14px;
+  color: #111827;
+  border: none;
+  outline: none;
+}
+.art-newsletter-btn {
+  padding: 12px 24px;
+  background: #fff;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1b99a7;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+/* CTA section */
+.art-cta-section {
+  background: #F9FAFB;
+  border-top: 1px solid #F3F4F6;
+  padding: 56px 0;
+}
+.art-cta-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 32px;
+}
+.art-cta-btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+/* Related section */
+.art-related-section {
+  padding: 56px 0;
+  background: #fff;
+  border-top: 1px solid #F3F4F6;
+}
+.art-related-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* ── Tablet (≤ 768px) ──────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .art-container { padding: 0 1.25rem; }
+
+  .art-breadcrumb-inner { flex-direction: column; align-items: flex-start; gap: 6px; }
+
+  .art-header { padding: 20px 0 0; }
+
+  .art-meta-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    padding-bottom: 24px;
+  }
+
+  .art-hero-img {
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+  }
+  .art-hero-wrap { padding: 20px 0 0; }
+
+  .art-body-section { padding: 32px 0 48px; }
+
+  .art-newsletter { padding: 48px 0; }
+  .art-newsletter-form { flex-direction: column; }
+  .art-newsletter-input { min-width: 0; width: 100%; }
+  .art-newsletter-btn { width: 100%; text-align: center; }
+
+  .art-cta-section { padding: 40px 0; }
+  .art-cta-inner { flex-direction: column; align-items: flex-start; gap: 20px; }
+  .art-cta-btns { width: 100%; }
+  .art-cta-btns a { flex: 1; justify-content: center; }
+
+  .art-related-section { padding: 40px 0; }
+  .art-related-header { margin-bottom: 20px; }
+}
+
+/* ── Mobile (≤ 480px) ──────────────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .art-container { padding: 0 1rem; }
+
+  .art-breadcrumb-bar .art-breadcrumb-inner .back-link { display: none; }
+
+  .art-hero-img { border-radius: 12px; aspect-ratio: 4/3; }
+
+  .art-meta-left { gap: 6px 10px; font-size: 12px; }
+  .art-share-row .share-label { display: none; }
+
+  .art-body-section { padding: 24px 0 40px; }
+  .art-newsletter { padding: 36px 0; }
+  .art-cta-section { padding: 32px 0; }
+  .art-related-section { padding: 32px 0; }
+
+  /* Prose font size reduction on very small screens */
+  .blog-prose { font-size: 16px !important; }
+  .blog-prose p { font-size: 16px !important; }
+  .blog-prose h2 { font-size: 19px !important; margin: 2rem 0 0.75rem !important; }
+  .blog-prose h3 { font-size: 16px !important; }
+  .blog-prose li { font-size: 15px !important; }
+}
+
 /* ─── Blog pages — scoped design tokens (match reference :root) ───────────── */
+/* Blog CSS variables also on :root so blog-prose and article-* classes work
+   without requiring a .blog-layout ancestor wrapper */
+:root {
+  --blog-p:   #1b99a7;
+  --blog-pd:  #157a86;
+  --blog-pl:  #e8f7f8;
+  --blog-g9:  #111827;
+  --blog-g8:  #1f2937;
+  --blog-g7:  #374151;
+  --blog-g6:  #4b5563;
+  --blog-g5:  #6b7280;
+  --blog-g4:  #9ca3af;
+  --blog-g3:  #d1d5db;
+  --blog-g2:  #e5e7eb;
+  --blog-g1:  #f3f4f6;
+  --blog-g0:  #f9fafb;
+  --blog-r:   12px;
+}
+
 .blog-layout {
   font-family: var(--font-inter, 'Inter', -apple-system, sans-serif);
   --blog-p:   #1b99a7;
@@ -312,6 +634,8 @@
 
 /* Article prose — exact match to reference .prose rules */
 .blog-prose {
+  font-family: var(--font-inter), 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
   font-size: 18px;
   color: var(--blog-g6);
   line-height: 1.8;
@@ -320,7 +644,7 @@
 }
 .blog-prose h2 {
   font-size: 22px;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--blog-g9);
   margin: 2.5rem 0 0.875rem;
   line-height: 1.3;
@@ -565,7 +889,7 @@
 /* Prose headings — exact match to reference .prose h2 / h3 */
 .blog-prose h2 {
   font-size: 22px !important;
-  font-weight: 700 !important;
+  font-weight: 800 !important;
   color: var(--blog-g9) !important;
   margin: 2.5rem 0 0.875rem !important;
   line-height: 1.3 !important;
@@ -617,4 +941,140 @@
   line-height: 1.13 !important;
   font-size: clamp(30px, 4vw, 54px) !important;
   letter-spacing: normal !important;
+}
+
+/* ─── Complete blog-prose element coverage ────────────────────────────────────
+   These rules ensure every element a CMS editor can produce in Markdown
+   renders correctly inside the article column.
+   ──────────────────────────────────────────────────────────────────────────── */
+
+/* h4 / h5 inside prose */
+.blog-prose h4 {
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  color: var(--blog-g8) !important;
+  margin: 1.75rem 0 0.6rem !important;
+  line-height: 1.35 !important;
+  letter-spacing: normal !important;
+}
+.blog-prose h5 {
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  color: var(--blog-g7) !important;
+  margin: 1.5rem 0 0.5rem !important;
+  line-height: 1.4 !important;
+  letter-spacing: normal !important;
+}
+
+/* Images inside prose */
+.blog-prose img {
+  max-width: 100% !important;
+  height: auto !important;
+  border-radius: 10px !important;
+  margin: 2rem auto !important;
+  display: block !important;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Inline code */
+.blog-prose code {
+  font-family: ui-monospace, 'Cascadia Code', 'Fira Code', monospace !important;
+  font-size: 15px !important;
+  background: var(--blog-g1) !important;
+  color: var(--blog-p) !important;
+  padding: 2px 7px !important;
+  border-radius: 5px !important;
+  border: 1px solid var(--blog-g2) !important;
+  font-weight: 500 !important;
+}
+
+/* Fenced code blocks */
+.blog-prose pre {
+  background: #1e293b !important;
+  border-radius: 12px !important;
+  padding: 20px 24px !important;
+  overflow-x: auto !important;
+  margin: 2rem 0 !important;
+  border: 1px solid rgba(255, 255, 255, 0.07) !important;
+}
+.blog-prose pre code {
+  background: transparent !important;
+  color: #e2e8f0 !important;
+  border: none !important;
+  padding: 0 !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  line-height: 1.7 !important;
+}
+
+/* Horizontal rule */
+.blog-prose hr {
+  border: none !important;
+  border-top: 1px solid var(--blog-g2) !important;
+  margin: 3rem 0 !important;
+}
+
+/* Tables */
+.blog-prose table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  margin: 2rem 0 !important;
+  font-size: 15px !important;
+  border-radius: 10px !important;
+  overflow: hidden !important;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06) !important;
+}
+.blog-prose th {
+  background: var(--blog-g1) !important;
+  color: var(--blog-g8) !important;
+  font-weight: 700 !important;
+  padding: 12px 16px !important;
+  text-align: left !important;
+  border-bottom: 2px solid var(--blog-g2) !important;
+  font-size: 13px !important;
+  letter-spacing: 0.04em !important;
+  text-transform: uppercase !important;
+}
+.blog-prose td {
+  padding: 11px 16px !important;
+  color: var(--blog-g6) !important;
+  border-bottom: 1px solid var(--blog-g1) !important;
+  vertical-align: top !important;
+  font-weight: 300 !important;
+}
+.blog-prose tr:last-child td {
+  border-bottom: none !important;
+}
+.blog-prose tr:nth-child(even) td {
+  background: var(--blog-g0) !important;
+}
+
+/* Strong inside prose */
+.blog-prose strong,
+.blog-prose b {
+  font-weight: 600 !important;
+  color: var(--blog-g8) !important;
+}
+
+/* Emphasis */
+.blog-prose em,
+.blog-prose i {
+  font-style: italic !important;
+  color: var(--blog-g6) !important;
+}
+
+/* Blockquote */
+.blog-prose blockquote {
+  border-left: 3px solid var(--blog-p) !important;
+  padding: 14px 20px !important;
+  background: var(--blog-g0) !important;
+  border-radius: 0 10px 10px 0 !important;
+  margin: 2rem 0 !important;
+  font-style: italic !important;
+  color: var(--blog-g5) !important;
+  font-size: 17px !important;
+  line-height: 1.75 !important;
+}
+.blog-prose blockquote p {
+  margin-bottom: 0 !important;
 }

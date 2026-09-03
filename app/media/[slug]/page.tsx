@@ -1,10 +1,29 @@
+/**
+ * app/media/[slug]/page.tsx
+ *
+ * Server component — the single dynamic route for every CMS blog post.
+ *
+ * Data flow:
+ *   content/blog/*.md  →  getMarkdownPosts()  →  getPostBySlug()
+ *   →  markdownToHtml()  →  extractAndInjectHeadings()  →  DynamicArticleContent
+ *
+ * All heading IDs are slug-based (e.g. "understand-your-needs") so the TOC
+ * labels and anchor links are always human-readable and in sync.
+ *
+ * Auto-refresh: Next.js re-validates every 60 s so new CMS posts appear
+ * without a full rebuild. dynamicParams = true allows new slugs on-demand.
+ */
+
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import { Suspense } from "react"
+import { unstable_noStore as noStore } from "next/cache"
 import { unified } from "unified"
 import remarkParse from "remark-parse"
 import remarkHtml from "remark-html"
 import { getAllPosts, getPostBySlug, getRelatedPostsAll, getAdjacentPostsAll } from "@/lib/all-posts"
+import { extractAndInjectHeadings } from "@/lib/slugify"
+import { calcReadingTime, calcSkimTime } from "@/lib/readingTime"
 import DynamicArticleContent from "./article-client"
 
 // Auto-refresh every 60 seconds — new CMS posts appear without full rebuild
@@ -12,7 +31,7 @@ export const revalidate = 60
 // Allow new slugs (added via CMS) to be rendered on-demand without rebuild
 export const dynamicParams = true
 
-// ─── Static params — one page per post from ALL sources ──────────────────────
+// ─── Static params — one page per post ───────────────────────────────────────
 
 export async function generateStaticParams() {
   const posts = await getAllPosts()
@@ -73,52 +92,39 @@ export default async function BlogPostPage({
   params: Promise<{ slug: string }>
 }) {
   const { slug } = await params
+  // Force fresh markdown read — Next.js does not watch content/ files in dev
+  noStore()
+
   const post = await getPostBySlug(slug)
   if (!post) notFound()
 
-  // Convert markdown → HTML if this is a CMS post
-  const rawContent =
+  // ── Convert Markdown → HTML (CMS posts are always Markdown) ──────────────
+  const rawHtml =
     post.contentFormat === "markdown"
       ? await markdownToHtml(post.content)
       : post.content || post.excerpt || ""
 
-  // Parse h2 headings, assign IDs, inject into HTML (works for both HTML and converted markdown)
-  interface TocItem { id: string; label: string }
-  const headings: TocItem[] = []
-  let sectionIndex = 0
+  // ── Extract H2 headings, assign slug-based IDs, inject into HTML ──────────
+  // e.g. "Understand Your Needs" → id="understand-your-needs"
+  const { processedContent, headings } = extractAndInjectHeadings(rawHtml)
 
-  const processedContent = rawContent.replace(
-    /<h2([^>]*)>([\s\S]*?)<\/h2>/gi,
-    (_match, attrs: string, inner: string) => {
-      const rawText = inner.replace(/<[^>]+>/g, "").trim()
-      const text = rawText.replace(/^\d+\s+/, "")
-      const cleanInner = inner.replace(/^(\s*)(\d+\s+)/, "$1")
-      let id: string
-      if (text.toLowerCase().startsWith("intro")) {
-        id = "introduction"
-      } else if (text.toLowerCase().startsWith("conclusion")) {
-        id = "conclusion"
-      } else {
-        sectionIndex += 1
-        id = `section-${sectionIndex}`
-      }
-      headings.push({ id, label: text })
-      return `<h2${attrs} id="${id}" style="scroll-margin-top:100px">${cleanInner}</h2>`
-    }
-  )
+  // ── Reading time: use CMS field if set, otherwise auto-calculate ──────────
+  const readTime = post.readTime || calcReadingTime(post.content)
+  const skimTime = calcSkimTime(post.content)
 
-  const relatedPosts = await getRelatedPostsAll(slug, 3)
+  // ── Related posts — same category first ──────────────────────────────────
+  const relatedPosts = await getRelatedPostsAll(slug, 3, post.category)
   const { prev, next } = await getAdjacentPostsAll(slug)
 
   return (
     <Suspense fallback={<div className="min-h-screen" />}>
       <DynamicArticleContent
-        post={post}
+        post={{ ...post, readTime }}
         processedContent={processedContent}
-        headings={headings}
         relatedPosts={relatedPosts}
         prev={prev}
         next={next}
+        skimTime={skimTime}
       />
     </Suspense>
   )

@@ -2,9 +2,8 @@
  * lib/all-posts.ts
  *
  * Server-only module. Returns blog posts exclusively from Decap CMS
- * (content/blog/*.md). Hardcoded legacy posts have been removed.
- *
- * All content must be authored through the Decap CMS at /admin.
+ * (content/blog/*.md). Single source of truth for the listing page,
+ * article page, related articles, and prev/next navigation.
  */
 
 import { getMarkdownPosts } from "./markdown-posts"
@@ -21,13 +20,24 @@ export async function getPostBySlug(slug: string): Promise<LocalBlogPost | null>
   return posts.find((p) => p.slug === slug) ?? null
 }
 
-/** Related posts (excluding current), up to `limit` */
+/**
+ * Related posts — same category first, then backfill with latest.
+ * Excludes the current article. Returns up to `limit` posts.
+ */
 export async function getRelatedPostsAll(
   currentSlug: string,
-  limit = 3
+  limit = 3,
+  currentCategory?: string
 ): Promise<LocalBlogPost[]> {
   const posts = await getAllPosts()
-  return posts.filter((p) => p.slug !== currentSlug).slice(0, limit)
+  const others = posts.filter((p) => p.slug !== currentSlug)
+
+  if (!currentCategory) return others.slice(0, limit)
+
+  // Prefer same-category posts, then fill remaining slots with others
+  const sameCategory = others.filter((p) => p.category === currentCategory)
+  const different = others.filter((p) => p.category !== currentCategory)
+  return [...sameCategory, ...different].slice(0, limit)
 }
 
 /** Previous and next posts relative to current slug */
